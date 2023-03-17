@@ -1,6 +1,5 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import Product from "../components/Product";
 
 const api = "https://fakestoreapi.com/products";
 
@@ -17,8 +16,10 @@ interface Product {
   };
   quantity?: number;
 }
+
 const initialState = {
   products: [] as Product[], // empty array that will be populated by products
+  cart: [] as Product[],
 };
 
 // createAsyncThunk basically says that this is a promise
@@ -32,7 +33,10 @@ export const productsSlice = createSlice({
   name: "products",
   initialState,
   reducers: {
-    getProducts(state) {},
+    addToCart(state, action: PayloadAction<Product>) {
+      state.cart = [...state.cart, action.payload];
+      console.log(state.cart);
+    },
   },
   extraReducers(builder) {
     // When fetchProducts is fulfilled, do this
@@ -44,3 +48,7 @@ export const productsSlice = createSlice({
     );
   },
 });
+
+export const { addToCart } = productsSlice.actions;
+
+export default productsSlice.reducer;

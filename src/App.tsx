@@ -9,8 +9,8 @@ import "./App.css";
 function App() {
   return (
     <div className="App">
-      <Navigation />
       <BrowserRouter>
+        <Navigation />
         <Routes>
           <Route path="/" element={<List />} />
           <Route path="/cart" element={<Cart />} />
